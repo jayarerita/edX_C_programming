@@ -1,0 +1,16 @@
+#!/bin/bash
+# Compile all of the *.c source files in a directory into executables and object files.
+# Store the object files separately.
+
+SRC := src
+OBJ := obj
+
+SOURCES := $(wildcard $(SRC)/*.c)
+OBJECTS := $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SOURCES))
+
+all: $(OBJECTS)
+	$(CC) $^ -o $@
+
+$(OBJ)/%.o: $(SRC)/%.c
+	$(CC) -c $< -o $@
+
